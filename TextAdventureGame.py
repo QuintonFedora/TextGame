@@ -1,4 +1,5 @@
 import random
+import random
 import time
 print('Introduction'.center(51,'-'))
 print('An adventure game that changes with the choices you make and has multiple outcomes!')
@@ -24,6 +25,59 @@ print("You slowly wake up to a warm orange glow that covers everything.")
 print('Introduction'.center(30,'-'))
 print("You hear a voice in the distance ask...")
 
+def raiddice():
+    print("To win the game and save your life you must roll until your total points are 25 or higher.\nIf you roll a 1 you lose that round.")
+    round_score = 0
+    player_score = 0
+    turn = 0
+    while player_score < 25:
+        Roll = input("Please press r to roll the die: ").lower()
+        if Roll == "r":
+            print()
+            numD = random.randint(1,6)
+            if numD >= 2:
+                round_score += numD
+                turn = turn + 1
+                print("You rolled a " + str(numD))
+                print()
+                print("Turn " + str(turn))
+                print("Your round score is: " + str(round_score))
+                print("Your banked score is: " + str(player_score))
+            elif numD <= 1:
+                turn += 1
+                print("You rolled a " + str(numD))
+                print()
+                print("Turn " + str(turn))
+                print("Your round score has been reset to zero!")
+                print("Your banked score is: " + str(player_score))
+                print()
+            bank_deposit = input("Press b to deposit your points into the bank or r to keep playing: ")
+            if bank_deposit == "b":
+                print()
+                player_score += round_score
+                round_score = 0
+                print(f"Your new total banked score is {player_score}")
+                print()
+                continue
+            elif bank_deposit == "r":
+                    continue
+            else:
+                print("This input is invalid. Please try again.")
+                print()
+                continue
+    if player_score >= 25:
+        print("Congratulations!, You won the Raider Dice Game!")
+        time.sleep(1)
+        print(f"Your total score was {player_score} in {turn} turns!")
+        time.sleep(1)
+        print("Because you won our game we will save you from the apocolypse!")
+        time.sleep(1)
+        print(f"Your final health was {hp}/100")
+        time.sleep(1)
+        print()
+        print(f"You Won the game {Name}! You beat the raiders and recieved help!!".center(80,'-'))
+        exit()
+        
 hp = 100
 hp1 = random.randint(1, 7)
 hp2 = random.randint(10, 20)
@@ -108,13 +162,17 @@ if Choice_3 == 1:
     if Choice_3p == 1:
         print()
         print("You exit the small hut and start looking for someone nearby. You see a truck moving in the distance, \nAs you come closer to the truck you realize that they are armed and may not be friendly.")
-        print("Your suspicions were proven to be valid as the people in the truck start shooting at you.")
-        time.sleep(1)
-        print()
-        print(f"{Name} does not make it...")
-        print(f"You lose -{hp} out of {hp}/100 health")
-        print('You were killed by unknown survivors in a truck...Game Over!'.center(81,'-'))
-        exit()
+        print("After a minute the truck stops near you and the people inside step out...\nThey walk closer and give you a choice...")
+        choice_raider = int(input("We will not harm you if you win at a game of dice... do you choose to play[press 1] or run away [press 2]: "))
+        if choice_raider == 1:
+            raiddice()
+            
+        elif choice_raider == 2:
+            print()
+            print(f"{Name} does not make it...")
+            print(f"You lose -{hp} out of {hp}/100 health")
+            print('You were killed by unknown survivors in a truck...Game Over!'.center(81,'-'))
+            exit()
     elif Choice_3p == 2:
         print()
         print("You get up off the ground and look around for any information of where you are. You find a news paper dated 9/17/2031, \nThe front headline says 'The End of Civilization?' under is a story about nuclear war between the U.S. and Russia...")
