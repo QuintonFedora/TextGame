@@ -40,6 +40,7 @@ print()
 if Choice_1 == 1:
     print("You get up from the ground and notice a pain in your shoulder.")
     hp = hp - hp1
+    time.sleep(1)
     print(f"You lose {hp1} health due to an unknown reason... Your health is now {hp}/100")
     print()
 else:
